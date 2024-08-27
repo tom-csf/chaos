@@ -1,0 +1,34 @@
+name: test
+
+on:
+
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: The organization of project
+        required: true
+        type: string
+        default: matrixorigin
+
+      project:
+        description: The project of image to be built
+        required: true
+        type: choice
+        options:
+          - mo-backup
+          - matrixone
+          - none
+        default: none
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: print input
+        run: |
+          echo $ORGANIZATION
+          echo $PROJECT
+        env:
+          ORGANIZATION: ${{inputs.organization}}
+          PROJECT: ${{inputs.project}}
